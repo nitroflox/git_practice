@@ -1,0 +1,91 @@
+<style>
+    canvas{
+        border: thin solid black;
+    }
+</style>
+<canvas id="colors" width="1024" height="1024">
+</canvas>
+<div id="text"></div>
+
+
+<script>
+    const canvas = document.getElementById("colors");
+    const ctx = canvas.getContext("2d");
+    var WIDTH = canvas.width, HEIGHT = canvas.height;
+    var offset = 128;
+    var pixel = HEIGHT / offset;
+
+    let text = document.getElementById("text");
+    text.style.fontSize = 40;
+
+    function Color(x, y, r, g, b, size){
+        this.x = x;
+        this.y = y;
+        this.r = r || 0;
+        this.g = g || 0;
+        this.b = b || 0;
+        this.size = size;
+    }
+
+    // drawGrid(ctx, offset);
+
+    var color = [];
+    // for(let r = 0; r < 256; r+=2){
+    //     for(let g = 0; g < 256; g+=2){
+    //         for(let b = 0; b < 256; b+=2){
+    //             colors.push({r,g,b});
+    //         }
+    //     }
+    // }
+    function draw(){
+        canvas.addEventListener('click', e => {
+            color = ctx.getImageData(e.clientX, e.clientY, 1, 1).data;
+        });
+        // console.log(`rgb(${color[0]}, ${color[1]}, ${color[2]})`)
+        text.innerHTML = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+        requestAnimationFrame(draw);
+    }
+
+    drawColor(ctx, pixel);
+    draw();
+    
+    function rand(min, max = null){
+        if(max != null){
+            return (Math.random() * (max - min)) + min;
+        }
+        return Math.random() * min;
+    }
+
+    function drawGrid(ctx, offset){
+        ctx.strokeStyle = "red";
+        ctx.strokeWeight = 0.25;
+        ctx.beginPath()
+        for(let x = 8; x < WIDTH; x+=offset){
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, HEIGHT);
+        }
+        for(let y = 8; y < HEIGHT; y+=offset){
+            ctx.moveTo(0, y);
+            ctx.lineTo(WIDTH, y)
+        }
+        ctx.closePath();
+        ctx.stroke();
+    }
+
+    function drawColor(ctx, offset){
+        let div = WIDTH / 358;
+        ctx.beginPath();
+        for(let x = 0; x < WIDTH; x += offset){
+            for(let y = 0; y < HEIGHT; y += offset){
+               /*  for(let g = 0; g< WIDTH; g += offset){
+                    // ctx.fillStyle = `rgba(${c[x * 256 * offset].r}, ${c[y * 256 * offset].r}, ${c[x * 256 * offset].g}, 1)`
+                } */
+                    // ctx.fillStyle = `rgba(${x / 4}, ${y / 4}, ${(y+x) / 4}, 1)`
+                ctx.fillStyle = `hsl(${Math.floor(x / div /*5.65*/)}, ${Math.floor(y / HEIGHT * 200)}%, ${Math.floor(y / HEIGHT * 100)}%)`
+                ctx.fillRect(x, y, offset, offset);
+            }
+            // console.log(x)
+        }
+        ctx.closePath();
+    }
+</script>
