@@ -12,7 +12,7 @@
     const canvas = document.getElementById("colors");
     const ctx = canvas.getContext("2d");
     var WIDTH = canvas.width, HEIGHT = canvas.height;
-    var offset = 128;
+    var offset = 16;
     var pixel = HEIGHT / offset;
 
     let text = document.getElementById("text");
@@ -81,7 +81,7 @@
                     // ctx.fillStyle = `rgba(${c[x * 256 * offset].r}, ${c[y * 256 * offset].r}, ${c[x * 256 * offset].g}, 1)`
                 } */
                     // ctx.fillStyle = `rgba(${x / 4}, ${y / 4}, ${(y+x) / 4}, 1)`
-                ctx.fillStyle = `hsl(${Math.floor(x / div /*5.65*/)}, ${Math.floor(y / HEIGHT * 200)}%, ${Math.floor(y / HEIGHT * 100)}%)`
+                ctx.fillStyle = `hsl(${Math.floor(x / div /*5.65*/)}, ${Math.floor(y / HEIGHT * 200)}%, ${Math.floor(y / HEIGHT * 110)}%)`
                 ctx.fillRect(x, y, offset, offset);
             }
             // console.log(x)
