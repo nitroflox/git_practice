@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid</title>
+    <style>
+        *{margin:0; padding:0}
+    </style>
+</head>
+<body>
+    <canvas id="grid"></canvas>
+    <script>
+        const canvas = document.getElementById("grid");
+        const ctx = canvas.getContext("2d");
+        const WIDTH = canvas.width = 800;
+        const HEIGHT = canvas.height = 800;
+        ctx.fillStyle = "black";
+        ctx.lineWidth = 1;
+
+        const BLOCK_SIZE = 100;
+
+        var total_block_width = WIDTH / BLOCK_SIZE;
+        var total_block_height = HEIGHT / BLOCK_SIZE;
+        var current_height = 0;
+        var grid = [];
+        for(let i = 0, x = 0, y = 0; i < total_block_height * total_block_width; i++, x++){
+            if(i % total_block_width === 0 && i !== 0){
+               y += BLOCK_SIZE;
+               x = 0;
+            }
+            grid.push({ x: x * BLOCK_SIZE, y: y, w: BLOCK_SIZE, h: BLOCK_SIZE, mouse_over: false });
+        }
+
+        for(let i = 0; i < grid.length; i++){
+            if(grid[i].mouse_over) ctx.fillStyle = "black";
+            ctx.fillStyle = "grey";
+            ctx.fillRect(grid[i].x, grid[i].y, grid[i].w, grid[i].h);
+        }
+
+        canvas.addEventListener("mousemove", e => {
+            let x = Math.floor(e.clientX / BLOCK_SIZE);
+            let y = Math.floor(e.clientY / BLOCK_SIZE);
+            
+            let index = y * total_block_width + x;
+
+            for(let i = 0; i < grid.length; i++)
+                grid[i].mouse_over = false;
+
+            if(grid[index].x === x * BLOCK_SIZE && grid[index].y === y * BLOCK_SIZE)
+                grid[index].mouse_over = true;
+        });
+        canvas.addEventListener("mouseout", e => {
+            for(let i = 0; i < grid.length; i++) grid[i].mouse_over = false;
+        });
+        draw();
+
+        function draw(){
+            for(let i = 0; i < grid.length; i++){
+                if(grid[i].mouse_over) ctx.fillStyle = "black";
+                else{
+                    ctx.fillStyle = "grey";
+                    grid[i].mouse_over = false;
+                }
+                
+                ctx.fillRect(grid[i].x, grid[i].y, grid[i].w, grid[i].h);
+            }
+
+            ctx.beginPath();
+            for(let x = 0; x <= WIDTH; x += BLOCK_SIZE){
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, HEIGHT);
+            }
+            for(let y = 0; y <= HEIGHT; y += BLOCK_SIZE){
+                ctx.moveTo(0, y);
+                ctx.lineTo(WIDTH, y);
+            }
+            ctx.stroke();
+
+            requestAnimationFrame(draw);
+        }
+    </script>
+</body>
+</html>
