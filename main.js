@@ -102,13 +102,13 @@ sizeValue.value = sizeSlider.value;
 setCircleSize();
 setSquareSize();
 setEraserSize();
-setPenSize();
+// setPenSize();
 sizeSlider.addEventListener("change", (e)=>{
     sizeValue.value = sizeSlider.value;
     if(circlePen.use) setCircleSize();
     if(squarePen.use) setSquareSize();
     if(eraser.use) setEraserSize();
-    if(pen.use) setPenSize();
+    // if(pen.use) setPenSize();
 });
 sizeValue.addEventListener("keyup", (e)=>{
     if(sizeValue.value <= sizeSlider.min) sizeValue.value = 1;
@@ -117,7 +117,7 @@ sizeValue.addEventListener("keyup", (e)=>{
     if(circlePen.use) setCircleSize();
     if(squarePen.use) setSquareSize();
     if(eraser.use) setEraserSize();
-    if(pen.use) setPenSize();
+    // if(pen.use) setPenSize();
 })
 
 function changeFill(){
