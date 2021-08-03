@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paint Pallet</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <table id="main">
+        <tr>
+            <td>
+                <div id="color">
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="range" min="0" max="255" class="slider" id="r" />
+                            </td>
+                            <td>
+                                <input type="text" class="color-value" id="red" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="range" min="0" max="255" class="slider" id="g" />
+                            </td>
+                            <td>
+                                <input type="text" class="color-value" id="green" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="range" min="0" max="255" class="slider" id="b" />
+                            </td>
+                            <td>
+                                <input type="text" class="color-value" id="blue" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div id="square"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+            <td rowspan="2">
+                <canvas id="pallet"></canvas>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="tool">
+                    <button class="tool-btn" onclick="clearCanvas()">Clear</button><br/><br/>
+                    <button class="tool-btn" onclick="usePen()">Pen</button><br /><br />
+                    <button class="tool-btn" onclick="useSquare()">Square</button> 
+                    <button class="tool-btn" onclick="useCircle()">Circle</button> 
+                    <button class="tool-btn" onclick="useEraser()">Eraser</button><br/>
+                    <input type="range" min="1" max="200" class="slider" id="size" value="5" />
+                    <p>pen size: <input type="text" class="color-value" id="pen-size" /> px</p>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <script src="js/main.js"></script>
+</body>
+</html>
